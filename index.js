@@ -7,6 +7,7 @@ const authRoute = require('./routes/auth');
 const productRoute = require('./routes/product');
 const cartRoute = require('./routes/cart');
 const orderRoute = require('./routes/order');
+const phraseRoute = require('./routes/phrase');
 
 dotenv.config()
 
@@ -24,6 +25,7 @@ mongoose
     app.use('/api/products', productRoute)
     app.use('/api/cart', cartRoute)
     app.use('/api/products', orderRoute)
+    app.use('/api/phrase', phraseRoute)
 
 app.listen(process.env.PORT || 5000, () => {
     console.log('Backend is running')
