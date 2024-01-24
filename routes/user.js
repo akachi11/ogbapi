@@ -1,9 +1,10 @@
 const User = require('../models/User');
-const { verifyToken, verifyAndAuthToken, verifyAdminAuthToken } = require('./verifyToken');
+// const { verifyToken, verifyAndAuthToken, verifyAdminAuthToken } = require('./verifyToken');
 
 const router = require('express').Router();
 
-router.put("/:id", verifyAndAuthToken, async (req, res) => {
+
+router.put("/:id", async (req, res) => {
     try {
         const updatedUser = await User.findByIdAndUpdate(
             req.params.id,
@@ -19,7 +20,7 @@ router.put("/:id", verifyAndAuthToken, async (req, res) => {
 })
 
 //DELETE 
-router.delete("/:id", verifyAdminAuthToken, async (req, res) => {
+router.delete("/:id", async (req, res) => {
     try {
         await User.findByIdAndDelete(req.params.id)
         res.status(200).json("User deleted")
@@ -29,7 +30,7 @@ router.delete("/:id", verifyAdminAuthToken, async (req, res) => {
 });
 
 //GET USER
-router.get("/find/:id", verifyAdminAuthToken, async (req, res) => {
+router.get("/find/:id", async (req, res) => {
     try {
         const user = await User.findById(req.params.id)
         res.status(200).json(user)
@@ -39,12 +40,12 @@ router.get("/find/:id", verifyAdminAuthToken, async (req, res) => {
 });
 
 //GET ALL USERS
-router.get("/find-all", verifyAdminAuthToken, async (req, res) => {
+router.get("/find-all", async (req, res) => {
     const query = req.query.new
     try {
-        const users = query 
-        ? await User.find().sort({ _id: -1 }).limit(1)
-        : await User.find();
+        const users = query
+            ? await User.find().sort({ _id: -1 }).limit(1)
+            : await User.find();
         res.status(200).json(users)
     } catch (err) {
         res.status(500).json(err)

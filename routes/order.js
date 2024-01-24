@@ -1,15 +1,15 @@
 const Order = require('../models/Order');
-const {
-    verifyToken,
-    verifyAndAuthToken,
-    verifyAdminAuthToken
-} = require('./verifyToken');
+// const {
+//     verifyToken,
+//     verifyAndAuthToken,
+//     verifyAdminAuthToken
+// } = require('./verifyToken');
 
 const router = require('express').Router();
 
 //CREATE
 
-router.post("/", verifyToken, async (req, res) => {
+router.post("/", async (req, res) => {
     const newOrder = new ProOrder(req.body)
 
     try {
@@ -21,7 +21,7 @@ router.post("/", verifyToken, async (req, res) => {
 })
 
 //UPDATE
-router.put("/:id", verifyAdminAuthToken, async (req, res) => {
+router.put("/:id", async (req, res) => {
     try {
         const updatedOrder = await Order.findByIdAndUpdate(
             req.params.id,
@@ -37,7 +37,7 @@ router.put("/:id", verifyAdminAuthToken, async (req, res) => {
 })
 
 //DELETE 
-router.delete("/:id", verifyAdminAuthToken, async (req, res) => {
+router.delete("/:id", async (req, res) => {
     try {
         await Order.findByIdAndDelete(req.params.id)
         res.status(200).json("Order deleted")
@@ -47,7 +47,7 @@ router.delete("/:id", verifyAdminAuthToken, async (req, res) => {
 });
 
 //GET ORDER
-router.get("/find/:id", verifyAndAuthToken, async (req, res) => {
+router.get("/find/:id", async (req, res) => {
     try {
         const orders = await Order.find({ userId: req.params.id })
         res.status(200).json(orders)
@@ -57,7 +57,7 @@ router.get("/find/:id", verifyAndAuthToken, async (req, res) => {
 });
 
 //GET ALL 
-router.get("/", verifyAdminAuthToken), async (req, res) => {
+router.get("/"), async (req, res) => {
     try {
         const orders = await Order.find()
         res.status(200).json(orders);

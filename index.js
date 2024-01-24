@@ -30,7 +30,7 @@ mongoose
     app.use('/api/auth', authRoute)
     app.use('/api/products', productRoute)
     app.use('/api/cart', cartRoute)
-    app.use('/api/products', orderRoute)
+    app.use('/api/order', orderRoute)
     app.use('/api/phrase', phraseRoute)
 
 app.listen(process.env.PORT || 5000, () => {
