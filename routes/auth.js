@@ -9,6 +9,7 @@ router.post('/register', async (req, res) => {
         lastname: req.body.lastname,
         username: req.body.username,
         email: req.body.email,
+        phone: req.body.phone,
         password: req.body.password
     });
 
@@ -28,8 +29,10 @@ router.post("/login", async (req, res) => {
 
         const Opassword = user.password
 
-        Opassword !== req.body.password &&
+        if (Opassword !== req.body.password) {
             res.status(401).json("Wrong password");
+            return;
+        }
 
         const accessToken = jwt.sign({
             id: user.id,
