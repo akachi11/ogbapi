@@ -10,10 +10,10 @@ const router = require('express').Router();
 //CREATE
 
 router.post("/", async (req, res) => {
-    const newOrder = new ProOrder(req.body)
+    const newOrder = new Order(req.body)
 
     try {
-        const savedCart = await newOrder.save();
+        const savedOrder = await newOrder.save();
         res.status(200).json(savedOrder)
     } catch (err) {
         res.status(500).json(err)
@@ -49,7 +49,7 @@ router.delete("/:id", async (req, res) => {
 //GET ORDER
 router.get("/find/:id", async (req, res) => {
     try {
-        const orders = await Order.find({ userId: req.params.id })
+        const orders = await Order.find({ _id: req.params.id })
         res.status(200).json(orders)
     } catch (err) {
         res.status(500).json(err)
@@ -57,13 +57,16 @@ router.get("/find/:id", async (req, res) => {
 });
 
 //GET ALL 
-router.get("/"), async (req, res) => {
+router.get("/find-all", async (req, res) => {
+    const query = req.query.new
     try {
-        const orders = await Order.find()
-        res.status(200).json(orders);
+        const orders = query
+            ? await Order.find().sort({ _id: -1 }).limit(1)
+            : await Order.find();
+        res.status(200).json(orders)
     } catch (err) {
         res.status(500).json(err)
     }
-}
+})
 
 module.exports = router;

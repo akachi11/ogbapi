@@ -1,8 +1,8 @@
 const mongoose = require('mongoose')
 
-const OrderSchema = new mongoose.Schema(
+const MessageSchema = new mongoose.Schema(
     {
-        userId: { type: String, required: true },
+        title: { type: String, required: true },
         products: [
             {
                 productId: {
@@ -14,12 +14,11 @@ const OrderSchema = new mongoose.Schema(
                 }
             }
         ],
-        amount: { type: Number, required: true },
-        shippingDetails: { type: Object, required: true },
-        address: { type: Object, required: true },
+        orderId: { type: String, required: true },
+        body: { type: String, required: true },
         status: { type: String, default: 'Pending' }
     },
     { timestamps: true }
 )
 
-module.exports = mongoose.model('Order', OrderSchema)
+module.exports = mongoose.model('Message', MessageSchema)
