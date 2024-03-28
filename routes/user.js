@@ -1,8 +1,8 @@
 const User = require('../models/User');
+const UserVerification = require('../models/UserVerification');
 // const { verifyToken, verifyAndAuthToken, verifyAdminAuthToken } = require('./verifyToken');
 
 const router = require('express').Router();
-
 
 router.put("/:id", async (req, res) => {
     try {
