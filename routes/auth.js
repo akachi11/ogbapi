@@ -22,7 +22,19 @@ router.post('/register', async (req, res) => {
     }
 });
 
-//LOGIN
+// GMAIL-LOGIN
+router.post("/g-login", async (req, res) => {
+    try {
+        const user = await User.findOne({ username: req.body.username })
+
+        res.status(200).json({ user })
+
+    } catch (err) {
+        res.status(500).json(err)
+    }
+})
+
+//FORM-LOGIN
 router.post("/login", async (req, res) => {
     try {
         const user = await User.findOne({ username: req.body.username })
