@@ -46,12 +46,12 @@ router.get("/find-user", async (req, res) => {
         if (user == null) {
             const next = await User.findOne({ username: req.body.username })
             if (next !== null) {
-                res.status(200).json('Username')
+                res.status(200).json({ 'Match': 'Username' })
             } else {
-                res.status(200).json(next)
+                res.status(200).json({ 'Match': next })
             }
         } else {
-            res.status(200).json('Mail')
+            res.status(200).json({ 'Match': 'Mail' })
         }
 
     } catch (err) {
