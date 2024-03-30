@@ -40,7 +40,7 @@ router.get("/find/:id", async (req, res) => {
 });
 
 // FORM CHECK
-router.get("/find-user", async (req, res) => {
+router.post("/find-user", async (req, res) => {
     try {
         const user = await User.findOne({ email: req.body.email })
         if (user == null) {

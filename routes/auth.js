@@ -37,7 +37,7 @@ router.post("/g-login", async (req, res) => {
 //FORM-LOGIN
 router.post("/login", async (req, res) => {
     try {
-        const user = await User.findOne({ username: req.body.username })
+        const user = await User.findOne({ username: req.body.username } || {email: req.body.username})
         if (!user) return res.status(402).json("Wrong Credentials")
 
         const Opassword = user.password
