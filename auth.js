@@ -11,7 +11,8 @@ router.post('/register', async (req, res) => {
         email: req.body.email,
         phone: req.body.phone,
         password: req.body.password,
-        verified: req.body.verified
+        verified: req.body.verified,
+        isAdmin: req.body.isAdmin
     });
 
     try {

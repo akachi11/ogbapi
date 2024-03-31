@@ -14,10 +14,7 @@ const UserSchema = new mongoose.Schema(
                 voucherId: { type: String }
             }
         ],
-        isAdmin: {
-            type: Boolean,
-            default: false
-        },
+        isAdmin: { type: Boolean, default: false },
     },
     { timestamps: true }
 )
