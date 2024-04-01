@@ -26,7 +26,7 @@ router.post('/register', async (req, res) => {
 // GMAIL-LOGIN
 router.post("/g-login", async (req, res) => {
     try {
-        const user = await User.findOne({ username: req.body.username } || { email: req.body.username })
+        const user = await User.findOne({ email: req.body.email })
 
         res.status(200).json({ user })
 
@@ -39,25 +39,18 @@ router.post("/g-login", async (req, res) => {
 router.post("/login", async (req, res) => {
     try {
         const user = await User.findOne({ email: req.body.email })
-        if (!user) return res.status(402).json("Wrong Credentials")
+        if (!user) return res.status(200).json("Wrong Credentials")
 
         const Opassword = user.password
 
         if (Opassword !== req.body.password) {
-            res.status(401).json("Wrong password");
+            res.status(200).json("Wrong password");
             return;
         }
 
-        const accessToken = jwt.sign({
-            id: user.id,
-            isAdmin: user.isAdmin
-        }, process.env.JWT_SEC,
-            { expiresIn: "3d" }
-        )
-
         const { password, ...others } = user._doc
 
-        res.status(200).json({ ...others, accessToken })
+        res.status(200).json({ ...others })
 
     } catch (err) {
         res.status(500).json(err)
