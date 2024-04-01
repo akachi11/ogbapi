@@ -11,7 +11,8 @@ router.post('/register', async (req, res) => {
         email: req.body.email,
         phone: req.body.phone,
         password: req.body.password,
-        verified: req.body.verified
+        verified: req.body.verified,
+        isAdmin: req.body.isAdmin
     });
 
     try {
@@ -25,7 +26,7 @@ router.post('/register', async (req, res) => {
 // GMAIL-LOGIN
 router.post("/g-login", async (req, res) => {
     try {
-        const user = await User.findOne({ username: req.body.username })
+        const user = await User.findOne({ username: req.body.username } || { email: req.body.username })
 
         res.status(200).json({ user })
 
@@ -37,7 +38,7 @@ router.post("/g-login", async (req, res) => {
 //FORM-LOGIN
 router.post("/login", async (req, res) => {
     try {
-        const user = await User.findOne({ username: req.body.username } || {email: req.body.username})
+        const user = await User.findOne({ email: req.body.email })
         if (!user) return res.status(402).json("Wrong Credentials")
 
         const Opassword = user.password
